@@ -4,15 +4,15 @@ The problem details can be found [here](https://baylor.kattis.com/courses/CSI532
 
 The algorithm is very sensitive to the random seed selected.
 
-The weights that should give accuracy = 1 are w = [-149.0,2.0,2.0]. The corresponding decision bounday is:
+The weights that should give testing_accuracy = 100% are w = [-149.0,2.0,2.0]. The corresponding decision bounday is:
 <p align="center">
 <img src="images/2D_Visulization_test_data_perfect_decision_boundary.png" width="400" height="300">
 </p>
 
 I set the random seed to 0 and obtained the following results: 
 - learned weights = [-222.0,2.0,4.0]
-- training accuracy = 1
-- testing accuracy = 0.8
+- training accuracy = 100%
+- testing accuracy = 80%
 
 
 Below, a 2D visualization of the learned decision boundary and test data:

@@ -36,7 +36,7 @@ def PLA(X, y, max_iter=1000, learning_rate=1):
     data is not linearly separable.
 
     Returns:
-    - w: Learned weights (numpy array).
+    - w: Learned weights
     """
     X = np.column_stack((np.ones(X.shape[0]), X))
     w = np.zeros(X.shape[1])
@@ -62,7 +62,7 @@ def Perceptron_evaluation(w, X_test, y_test):
     X_test = np.column_stack((np.ones(X_test.shape[0]), X_test))
 
     predictions = np.sign(np.dot(X_test, w))
-    accuracy = np.mean(predictions == y_test)
+    accuracy = 100*np.mean(predictions == y_test)
     return accuracy
     
 def decision_boundary(X_test, y_test, w):
@@ -81,9 +81,9 @@ def decision_boundary(X_test, y_test, w):
     Z = Z.reshape(xx.shape)
 
     plt.contour(xx, yy, Z, colors='k', linewidths=2, levels=[0])
-    plt.title('Perceptron Decision Boundary')
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
+    plt.title('Test Data and Perceptron Decision Boundary')
+    plt.xlabel('X1')
+    plt.ylabel('X2')
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.show()
 
@@ -91,9 +91,9 @@ def main():
     # Apply Perceptron Learning Algorithm
     w = PLA(X_train, y_train)
     # Print and plot results
-    print("Learned weights :"," ".join(map(str, w)))
-    print("training accuracy : ",Perceptron_evaluation(w,X_train, y_train))
-    print("testing accuracy : ",Perceptron_evaluation(w,X_test, y_test))
+    print("Learned weights :",",".join(map(str, w)))
+    print("training accuracy : ",Perceptron_evaluation(w,X_train, y_train),"%")
+    print("testing accuracy : ",Perceptron_evaluation(w,X_test, y_test),"%")
     decision_boundary(X_test, y_test, w)
 
 if __name__ == "__main__":
