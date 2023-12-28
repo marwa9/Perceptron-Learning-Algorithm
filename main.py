@@ -106,10 +106,8 @@ def main():
     # Get the  training and testing data
     X_train, y_train = extract_data(args.training_dataset_path)
     X_test, y_test = extract_data(args.testing_dataset_path)
-    max_iter = args.max_iter
-    learning_rate = args.learning_rate
     # Apply Perceptron Learning Algorithm
-    w = PLA(X_train, y_train,max_iter,learning_rate)
+    w = PLA(X_train, y_train,args.max_iter,args.learning_rate)
     # Print and plot results
     print("Learned weights :",",".join(map(str, w)))
     print("training accuracy : ",Perceptron_evaluation(w,X_train, y_train),"%")
