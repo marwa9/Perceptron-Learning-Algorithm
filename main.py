@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Dec 26 17:11:02 2023
-
 @author: Marwa Kechaou
 
 Solution to the problem:
@@ -9,22 +8,35 @@ https://baylor.kattis.com/courses/CSI5325/20s/assignments/kwne7w/problems/baylor
 """
 
 import numpy as np
-
 import matplotlib.pyplot as plt
+import argparse
 
-# Set the random seed for reproducibility
-np.random.seed(0)
+parser = argparse.ArgumentParser(description='Perceptron Learning Algorithm')
+# Benchmark specific args
+parser.add_argument('--random_seed', default=0, type=int,help='random seed applied to ensure results reproducibility')
+parser.add_argument('--max_iter', default=1000, type=int,help='Maximum number of iterations to run PLA')
+parser.add_argument('--learning_rate', default=1, type=float,help='step to update model weights')
+parser.add_argument('--training_dataset_path', default="./data/simple.in", type=str,help='path of training dataset')
+parser.add_argument('--testing_dataset_path', default='./data/simple.ans', type=str,help='path of testing dataset')    
 
-# Define training and testing data
-X_train = np.array([[77,66],[86,14],[50,21],[42,82],[28,78],[22,32]])
-y_train = np.array([1,1,-1,1,1,-1])
 
-X_test = np.array([[23,47],[26,2],[96,78],[1,65],[64,40],[13,68],
-                   [24,5],[69,32],[21,19],[65,88]])
-y_test = np.array([-1,-1,1,-1,1,1,-1,1,-1,1])
+# Read data following the described structure
+def extract_data(file_path):
+    i = 0
+    X =[]
+    y = []
+    with open(file_path, 'r') as file:
+        for line in file:
+            line_content = line.strip()
+            if i != 0:
+                line_content = line_content.split(" ") 
+                X.append(list(map(float, line_content[:-1])))
+                y.append(int(line_content[-1]))
+            i+=1
+    return np.array(X),np.array(y)
 
 # Implement the Perceptron Learning Algorithm
-def PLA(X, y, max_iter=1000, learning_rate=1):
+def PLA(X, y, max_iter, learning_rate):
     """
     Parameters:
     - X: Input features
@@ -88,8 +100,16 @@ def decision_boundary(X_test, y_test, w):
     plt.show()
 
 def main():
+    args = parser.parse_args()
+    # Set the random seed for reproducibility
+    np.random.seed(args.random_seed)
+    # Get the  training and testing data
+    X_train, y_train = extract_data(args.training_dataset_path)
+    X_test, y_test = extract_data(args.testing_dataset_path)
+    max_iter = args.max_iter
+    learning_rate = args.learning_rate
     # Apply Perceptron Learning Algorithm
-    w = PLA(X_train, y_train)
+    w = PLA(X_train, y_train,max_iter,learning_rate)
     # Print and plot results
     print("Learned weights :",",".join(map(str, w)))
     print("training accuracy : ",Perceptron_evaluation(w,X_train, y_train),"%")
