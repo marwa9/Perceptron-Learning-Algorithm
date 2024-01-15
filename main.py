@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Dec 26 17:11:02 2023
 @author: Marwa Kechaou
 
 Solution to the problem:
